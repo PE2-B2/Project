@@ -1,18 +1,18 @@
 import os
 
-arr = os.listdir("C:/Users/main/Desktop/first/Project1/data")
+arr = os.listdir("./data")
 
 
 def call_dir(tag, caller):
-    fileName = []
-    for (root, dirs, file) in os.walk("C:/Users/main/Desktop/first/Project1/data"):
+    filename = []
+    for (root, dirs, file) in os.walk("./data"):
         for f in file:
             now = str(f)
             if now.find(caller) != -1:
-                fileName.append(str(root) + '\\' + now)
+                filename.append(str(root) + '\\' + now)
 
-    newFileName = []
-    for fname in fileName:
+    newfilename = []
+    for fname in filename:
         if fname.find(tag) != -1:
-            newFileName.append(fname)
-    return newFileName
+            newfilename.append(fname)
+    return newfilename
