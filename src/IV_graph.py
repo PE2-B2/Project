@@ -1,4 +1,4 @@
-from IV_a import *
+from IVAnalysis import *
 
 # IV raw data graph
 plt.subplot(234)

@@ -15,8 +15,6 @@ for t in a:
         waveValues.append(waveLengthSweep.attrib['DCBias'])
         v.append(waveValues)
 
-
-
 # Spectrum graph of raw data
     plots = []
     for i in range(len(v) - 1):
