@@ -6,11 +6,11 @@ import pandas as pd
 import csv
 
 
-def makeCSV(index):
+def makeCSV(directory):
     # Wafer = str(input("Input wafer name : "))
     # a = f.call_dir(Wafer, 'LMZ')
-    Wafer = model.waferId[index]
-    a = f.call_dir(Wafer, model.deviceName)
+    # Wafer = model.waferId[index]
+    # a = f.call_dir(Wafer, model.deviceName)
 
     f_output = open('test_1.csv', 'w', newline='')
     csv_writer = csv.writer(f_output)
@@ -18,7 +18,7 @@ def makeCSV(index):
         ['Name', 'Operator', 'Date', 'Testsite', 'Maskset', 'DieRow', 'DieColumn', 'AnalysisWavelength', 'I at 1V [A]',
          'I at -1V [A]'])
 
-    for t in a:
+    for t in directory:
         path = os.path.basename(t)
         root = ET.parse(t).getroot()
         print(path)
@@ -51,6 +51,17 @@ def makeCSV(index):
         IatV1 = rawValues[1][12]
         IatminV1 = rawValues[1][4]
 
+        print(name)
+        print(operator)
+        print(date)
+        print(batch)
+        print(testsite)
+        print(maskset)
+        print(dierow)
+        print(diecolumn)
+        print(AnalysisWavelength)
+        print(IatV1)
+        print(IatminV1)
 
         # data = {'Name': name, 'Operator' : operator, 'Date' : date, 'Testsite' : testsite, 'Maskset' : maskset, 'DieRow' : dierow, 'DieColumn' : diecolumn, 'AnalysisWavelength' : AnalysisWavelength, 'I at 1V [A]' : IatV1, 'I at -1V [A]' : IatminV1}
         csv_writer.writerow(

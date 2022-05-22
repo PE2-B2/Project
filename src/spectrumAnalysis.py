@@ -1,10 +1,17 @@
-from extract import *
+from . import filter as f
+from . import model
+import os
+import xml.etree.ElementTree as ET
+import pandas as pd
+import csv
 import matplotlib.pyplot as plt
 
-# Spectrum (Raw data)
-for t in a:
-    path = os.path.basename(t)
-    root = ET.parse(t).getroot()
+
+def specAnaly(directory):
+    # Spectrum (Raw data)
+
+    path = os.path.basename(directory)
+    root = ET.parse(directory).getroot()
 
     v = []
     for waveLengthSweep in root.findall('.//WavelengthSweep'):
@@ -16,6 +23,9 @@ for t in a:
         v.append(waveValues)
 
 # Spectrum graph of raw data
+
+    # Spectrum graph of raw data
+    plt.subplot(2, 2, 1)
     plots = []
     for i in range(len(v) - 1):
         line, = plt.plot(v[i][0], v[i][1], label="DCBias=\"" + str(v[i][2]) + "\"")

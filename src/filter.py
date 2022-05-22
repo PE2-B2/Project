@@ -3,7 +3,7 @@ import os
 arr = os.listdir("./data")
 
 
-def call_dir(tag, caller):
+def call_dir(tag, caller, coordinate):
     filename = []
     for (root, dirs, file) in os.walk("./data"):
         for f in file:
@@ -13,6 +13,5 @@ def call_dir(tag, caller):
 
     newfilename = []
     for fname in filename:
-        if fname.find(tag) != -1:
-            newfilename.append(fname)
-    return newfilename
+        if fname.find(tag) != -1 and fname.find(coordinate) != -1:
+            return fname

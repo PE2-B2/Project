@@ -1,8 +1,11 @@
 from . import model
+from . import filter as df  # Directory Filter
 from . import extract
 from . import IVAnalysis
 from . import fitted_spectrum
 from . import spectrumFitting
+from . import spectrumAnalysis
+import matplotlib.pyplot as plt
 
 
 def initMainView():
@@ -23,12 +26,53 @@ def initMainView():
     model.storeOptSaveFig(optSaveFig)
     model.storeOptShowFig(optShowFig)
 
-    model.printData()
+    waferIndex = 0
+    while True:
+        print('What Wafer? : ')
+        wafer = str(input())
+        waferIndex = chkExist(waferArr, wafer)
+        if waferIndex == -1:
+            print('Wrong Input!')
+            continue
+        break
 
-    extract.makeCSV(0)
+    coordinateIndex = 0
+    while True:
+        print('What Coordiante? :')
+        coordinate = str(input())
+        coordinateIndex = chkExist(xyCoordinateArr, coordinate)
+        if coordinateIndex == -1:
+            print('Wrong Input!')
+            continue
+        break
 
-    IVAnalysis.showPara(0)
+    model.storeInput(waferIndex, coordinateIndex)
 
-    spectrumFitting.specFitting(0)
+    # input Test Part
+    # model.printData()
 
-    fitted_spectrum.fitSpec(0)
+    # Directory Search
+    targetDirectory = []  # 디렉토리는 여기 추가하면 됨
+    targetWafer = model.waferId[model.inputIDIndex]
+    targetCoordinate = model.xyCoordinate[model.inputCoordinateIndex]
+    targetDevice = model.deviceName
+    targetDirectory.append(df.call_dir(targetWafer, targetDevice, targetCoordinate))  # 일단 하나인 경우 처리
+
+    extract.makeCSV(targetDirectory)
+    for pivot in targetDirectory:
+        IVAnalysis.showPara(pivot)
+        spectrumFitting.specFitting(pivot, model.inputIDIndex)
+        fitted_spectrum.fitSpec(pivot, model.inputCoordinateIndex)
+        spectrumAnalysis.specAnaly(pivot)
+        plt.show()
+
+
+def chkExist(targetArr, target):
+    index = 0
+
+    for pivot in targetArr:
+        if pivot == target:
+            return index
+        index += 1
+
+    return -1
