@@ -1,15 +1,15 @@
 from . import filter as f
+from . import model
 import os
 import xml.etree.ElementTree as ET
 import pandas as pd
 import csv
-from . import model
 
 
-def makeCSV():
+def makeCSV(index):
     # Wafer = str(input("Input wafer name : "))
     # a = f.call_dir(Wafer, 'LMZ')
-    Wafer = model.waferId[0]
+    Wafer = model.waferId[index]
     a = f.call_dir(Wafer, model.deviceName)
 
     f_output = open('test_1.csv', 'w', newline='')

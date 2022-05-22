@@ -1,5 +1,8 @@
 from . import model
 from . import extract
+from . import IVAnalysis
+from . import fittedSpectrum
+from . import spectrumFitting
 
 
 def initMainView():
@@ -22,4 +25,10 @@ def initMainView():
 
     model.printData()
 
-    extract.makeCSV()
+    extract.makeCSV(0)
+
+    IVAnalysis.showPara(0)
+
+    spectrumFitting.specFitting(0)
+
+    fittedSpectrum.fitSpec(0)

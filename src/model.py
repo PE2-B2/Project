@@ -61,4 +61,3 @@ def printData():
     print(deviceName)
     print(optSaveFig)
     print(optShowFig)
-
