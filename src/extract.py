@@ -2,7 +2,6 @@ from . import filter as f
 from . import model
 import os
 import xml.etree.ElementTree as ET
-import pandas as pd
 import csv
 
 
@@ -51,28 +50,7 @@ def makeCSV(directory):
         IatV1 = rawValues[1][12]
         IatminV1 = rawValues[1][4]
 
-        print(name)
-        print(operator)
-        print(date)
-        print(batch)
-        print(testsite)
-        print(maskset)
-        print(dierow)
-        print(diecolumn)
-        print(AnalysisWavelength)
-        print(IatV1)
-        print(IatminV1)
-
-        # data = {'Name': name, 'Operator' : operator, 'Date' : date, 'Testsite' : testsite, 'Maskset' : maskset, 'DieRow' : dierow, 'DieColumn' : diecolumn, 'AnalysisWavelength' : AnalysisWavelength, 'I at 1V [A]' : IatV1, 'I at -1V [A]' : IatminV1}
         csv_writer.writerow(
             [name, operator, date, testsite, maskset, dierow, diecolumn, AnalysisWavelength, IatV1, IatminV1])
 
-    # df = pd.DataFrame(data, index=['a'])
-    # df.to_csv("test_1.csv", index=False)
-
-    # print(data)
-
-    # df = pd.DataFrame(data, index=['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k'])
-
-    # print(df)
     f_output.close()

@@ -48,7 +48,7 @@ def showPara(directory):
 
     plt.subplot(2, 2, 4)
     line1, = plt.plot(polyline, model1(polyline), color='red')
-    plt.scatter(v[0], np.abs(v[1]), s=70, c='red', lw=2, label="IV data")
+    plt.scatter(v[0], np.abs(v[1]), s=50, c='red', lw=2, label="IV data")
     plt.plot(v[0][9:11], np.abs(v[1][9:11]), c='red', lw=2, label="fitted graph")
     plt.plot(V2, fittedDiagram, c='red', lw=2, label="R²:0.999999")
 

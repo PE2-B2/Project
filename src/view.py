@@ -58,12 +58,14 @@ def initMainView():
     targetDevice = model.deviceName
     targetDirectory.append(df.call_dir(targetWafer, targetDevice, targetCoordinate))  # 일단 하나인 경우 처리
 
-    extract.makeCSV(targetDirectory)
+    # extract.makeCSV(targetDirectory)
+    extract.makeCSV(df.call_all_dir(targetWafer, targetDevice))
     for pivot in targetDirectory:
         IVAnalysis.showPara(pivot)
         spectrumFitting.specFitting(pivot, model.inputIDIndex)
         fitted_spectrum.fitSpec(pivot, model.inputCoordinateIndex)
         spectrumAnalysis.specAnaly(pivot)
+        # plt.savefig()
         plt.show()
 
 
