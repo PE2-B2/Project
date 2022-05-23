@@ -141,3 +141,6 @@ cython_debug/
 # project specific
 
 dat/
+
+# intellij configs
+.idea/

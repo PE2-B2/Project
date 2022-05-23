@@ -22,6 +22,8 @@ def specAnaly(directory):
         waveValues.append(waveLengthSweep.attrib['DCBias'])
         v.append(waveValues)
 
+# Spectrum graph of raw data
+
     # Spectrum graph of raw data
     plt.subplot(2, 2, 1)
     plots = []
