@@ -1,2 +1,1 @@
 Name,Operator,Date,Testsite,Maskset,DieRow,DieColumn,AnalysisWavelength,I at 1V [A],I at -1V [A]
-MZMCTE_LULAB_450_500,ykim,Mon Jul 15 19:09:27 2019,DCM_LMZC,LION1,0,0,1550.0,-0.006707282,8.955287e-09

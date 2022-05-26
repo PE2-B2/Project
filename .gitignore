@@ -144,3 +144,10 @@ dat/
 
 # intellij configs
 .idea/
+
+# data
+data/**
+
+# result file
+res/pngs/*.png
+res/csvs/*.csv
