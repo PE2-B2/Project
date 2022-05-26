@@ -11,10 +11,10 @@ def makeCSV(directory):
     # Wafer = model.waferId[index]
     # a = f.call_dir(Wafer, model.deviceName)
 
-    f_output = open('test_1.csv', 'w', newline='')
+    f_output = open('./res/csvRes/allResult.csv', 'w', newline='')
     csv_writer = csv.writer(f_output)
     csv_writer.writerow(
-        ['Name', 'Operator', 'Date', 'Testsite', 'Maskset', 'DieRow', 'DieColumn', 'AnalysisWavelength', 'I at 1V [A]',
+        ['Name', 'WaferID' 'Operator', 'Date', 'Testsite', 'Maskset', 'DieRow', 'DieColumn', 'AnalysisWavelength', 'I at 1V [A]',
          'I at -1V [A]'])
 
     for t in directory:
@@ -32,6 +32,7 @@ def makeCSV(directory):
         date = element3.attrib['DateStamp']
 
         element4 = root.find('.//TestSiteInfo')
+        WaferID = element4.attrib['Wafer']
         batch = element4.attrib['Batch']
         testsite = element4.attrib['TestSite']
         maskset = element4.attrib['Maskset']
@@ -51,6 +52,6 @@ def makeCSV(directory):
         IatminV1 = rawValues[1][4]
 
         csv_writer.writerow(
-            [name, operator, date, testsite, maskset, dierow, diecolumn, AnalysisWavelength, IatV1, IatminV1])
+            [name, WaferID, operator, date, testsite, maskset, dierow, diecolumn, AnalysisWavelength, IatV1, IatminV1])
 
     f_output.close()
