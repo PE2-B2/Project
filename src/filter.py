@@ -50,3 +50,17 @@ def fileSplicer(pivot):
             break
     return wafer, coordinate
 
+
+def get_all_values():
+    wafer_id = []
+    coordinates = []
+    device_id = ['LMZ']
+
+    rootDir = "./data"
+    for subdir, dirs, files in os.walk(rootDir):
+        for file in files:
+            file_name = file.split('_')
+            if len(file_name) >= 7:
+                wafer_id.append(file_name[1]) if file_name[1] not in wafer_id else wafer_id
+                coordinates.append(file_name[2]) if file_name[2] not in coordinates else coordinates
+    return [wafer_id, coordinates, device_id]
