@@ -8,17 +8,13 @@ from . import spectrumAnalysis
 import matplotlib.pyplot as plt
 
 
-def initMainView():
-    print('Wafer : ')
-    waferArr = list(map(str, input().split()))
-    print('xy : ')
-    xyCoordinateArr = list(map(str, input().split()))
-    print('device name : ')
-    deviceName = str(input())
-    print('optsave? : ')
-    optSaveFig = str(input())
-    print('opt show? : ')
-    optShowFig = str(input())
+def initMainView(wafer, xy, device, save, show):
+
+    waferArr = list(map(str, wafer.split()))
+    xyCoordinateArr = list(map(str, xy.split()))
+    deviceName = str(device)
+    optSaveFig = str(save)
+    optShowFig = str(show)
 
     model.storeWaferId(waferArr)
     model.storexyCoordinate(xyCoordinateArr)
@@ -26,40 +22,12 @@ def initMainView():
     model.storeOptSaveFig(optSaveFig)
     model.storeOptShowFig(optShowFig)
 
-    """
-    waferIndex = 0
-    while True:
-        print ('What Wafer? : ')
-        wafer = str(input())
-        waferIndex = chkExist (waferArr, wafer)
-        if waferIndex == -1:
-            print ('Wrong Input!')
-            continue
-        break
-
-    coordinateIndex = 0
-    while True:
-        print ('What Coordiante? :')
-        coordinate = str(input())
-        coordinateIndex = chkExist (xyCoordinateArr, coordinate)
-        if coordinateIndex == -1:
-            print ('Wrong Input!')
-            continue
-        break
-
-    model.storeInput(waferIndex, coordinateIndex)
-    """
     # input Test Part
     # model.printData()
 
     # Directory Search
     targetDirectory = []  # 디렉토리는 여기 추가하면 됨
-    """
-    targetWafer = model.waferId[model.inputIDIndex]
-    targetCoordinate = model.xyCoordinate[model.inputCoordinateIndex]
-    targetDevice = model.deviceName
-    targetDirectory.append(df.call_dir(targetWafer, targetDevice, targetCoordinate)) #일단 하나인 경우 처리
-    """
+
 
     targetDevice = deviceName
     for waferPivot in waferArr:
@@ -85,6 +53,8 @@ def initMainView():
             wafer, coordinate = df.fileSplicer(pivot)
             device = deviceName
             key = str(wafer + coordinate + device)
+            figure = plt.gcf()
+            figure.set_size_inches(16, 9)
             if key in hashTable:
                 hashTable[key] += 1
                 version = '(' + str(hashTable[key]) + ')'
