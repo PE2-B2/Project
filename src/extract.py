@@ -2,7 +2,6 @@ from . import filter as f
 from . import model
 import os
 import xml.etree.ElementTree as ET
-import pandas as pd
 import csv
 
 
@@ -12,10 +11,10 @@ def makeCSV(directory):
     # Wafer = model.waferId[index]
     # a = f.call_dir(Wafer, model.deviceName)
 
-    f_output = open('test_1.csv', 'w', newline='')
+    f_output = open('./res/csvRes/allResult.csv', 'w', newline='')
     csv_writer = csv.writer(f_output)
     csv_writer.writerow(
-        ['Name', 'Operator', 'Date', 'Testsite', 'Maskset', 'DieRow', 'DieColumn', 'AnalysisWavelength', 'I at 1V [A]',
+        ['Name', 'WaferID' 'Operator', 'Date', 'Testsite', 'Maskset', 'DieRow', 'DieColumn', 'AnalysisWavelength', 'I at 1V [A]',
          'I at -1V [A]'])
 
     for t in directory:
@@ -33,6 +32,7 @@ def makeCSV(directory):
         date = element3.attrib['DateStamp']
 
         element4 = root.find('.//TestSiteInfo')
+        WaferID = element4.attrib['Wafer']
         batch = element4.attrib['Batch']
         testsite = element4.attrib['TestSite']
         maskset = element4.attrib['Maskset']
@@ -51,28 +51,7 @@ def makeCSV(directory):
         IatV1 = rawValues[1][12]
         IatminV1 = rawValues[1][4]
 
-        print(name)
-        print(operator)
-        print(date)
-        print(batch)
-        print(testsite)
-        print(maskset)
-        print(dierow)
-        print(diecolumn)
-        print(AnalysisWavelength)
-        print(IatV1)
-        print(IatminV1)
-
-        # data = {'Name': name, 'Operator' : operator, 'Date' : date, 'Testsite' : testsite, 'Maskset' : maskset, 'DieRow' : dierow, 'DieColumn' : diecolumn, 'AnalysisWavelength' : AnalysisWavelength, 'I at 1V [A]' : IatV1, 'I at -1V [A]' : IatminV1}
         csv_writer.writerow(
-            [name, operator, date, testsite, maskset, dierow, diecolumn, AnalysisWavelength, IatV1, IatminV1])
+            [name, WaferID, operator, date, testsite, maskset, dierow, diecolumn, AnalysisWavelength, IatV1, IatminV1])
 
-    # df = pd.DataFrame(data, index=['a'])
-    # df.to_csv("test_1.csv", index=False)
-
-    # print(data)
-
-    # df = pd.DataFrame(data, index=['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k'])
-
-    # print(df)
     f_output.close()

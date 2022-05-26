@@ -26,45 +26,77 @@ def initMainView():
     model.storeOptSaveFig(optSaveFig)
     model.storeOptShowFig(optShowFig)
 
+    """
     waferIndex = 0
     while True:
-        print('What Wafer? : ')
+        print ('What Wafer? : ')
         wafer = str(input())
-        waferIndex = chkExist(waferArr, wafer)
+        waferIndex = chkExist (waferArr, wafer)
         if waferIndex == -1:
-            print('Wrong Input!')
+            print ('Wrong Input!')
             continue
         break
 
     coordinateIndex = 0
     while True:
-        print('What Coordiante? :')
+        print ('What Coordiante? :')
         coordinate = str(input())
-        coordinateIndex = chkExist(xyCoordinateArr, coordinate)
+        coordinateIndex = chkExist (xyCoordinateArr, coordinate)
         if coordinateIndex == -1:
-            print('Wrong Input!')
+            print ('Wrong Input!')
             continue
         break
 
     model.storeInput(waferIndex, coordinateIndex)
-
+    """
     # input Test Part
     # model.printData()
 
     # Directory Search
     targetDirectory = []  # 디렉토리는 여기 추가하면 됨
+    """
     targetWafer = model.waferId[model.inputIDIndex]
     targetCoordinate = model.xyCoordinate[model.inputCoordinateIndex]
     targetDevice = model.deviceName
-    targetDirectory.append(df.call_dir(targetWafer, targetDevice, targetCoordinate))  # 일단 하나인 경우 처리
+    targetDirectory.append(df.call_dir(targetWafer, targetDevice, targetCoordinate)) #일단 하나인 경우 처리
+    """
 
+    targetDevice = deviceName
+    for waferPivot in waferArr:
+        if xyCoordinateArr[0] == 'all':
+            waferAllDir = df.call_all_dir(waferPivot, targetDevice)
+            for waferEntirePivot in waferAllDir:
+                targetDirectory.append(waferEntirePivot)
+        else:
+            for coordinatePivot in xyCoordinateArr:
+                targetDirectory.append(df.call_dir(waferPivot, targetDevice, coordinatePivot))
+
+    # extract.makeCSV(targetDirectory)
+    # extract.makeCSV(targetDirectory)
     extract.makeCSV(targetDirectory)
+    hashTable = {}
     for pivot in targetDirectory:
         IVAnalysis.showPara(pivot)
         spectrumFitting.specFitting(pivot, model.inputIDIndex)
         fitted_spectrum.fitSpec(pivot, model.inputCoordinateIndex)
         spectrumAnalysis.specAnaly(pivot)
-        plt.show()
+
+        if optSaveFig == 'True':
+            wafer, coordinate = df.fileSplicer(pivot)
+            device = deviceName
+            key = str(wafer + coordinate + device)
+            if key in hashTable:
+                hashTable[key] += 1
+                version = '(' + str(hashTable[key]) + ')'
+                plt.savefig('.\\res\\figureRes\\' + wafer + ' ' + coordinate + ' ' + device + ' ' + version + '.png')
+            else:
+                plt.savefig('.\\res\\figureRes\\' + wafer + ' ' + coordinate + ' ' + device + '.png')
+                hashTable[key] = 1
+
+        if optShowFig == 'True':
+             plt.show()
+        else:
+            plt.clf()
 
 
 def chkExist(targetArr, target):
