@@ -26,12 +26,21 @@ pip install -r requirements.txt
 
 ## Environment
 * <span style="color:red">Python 3.8</span>
-* <span style="background-color:green">Window 10</span>
+* Window 10
 
 ***
 
 ## Usage
-1. 
+1. **Wafer** : You can type the wafer number you want in the data folder.
+2. **Coordinates** : You can type 'Row' and 'Column' from the wafer you choose.
+   * Type "all" if you want to see the entire data.
+3. **Device ID** : You can type device ID from the wafer you choose.
+   * ex) LMZ, LMZC, PSLCTE ...
+4. **Show Output** : You can see the result graphs one by one.
+5. **Save Output** : You can save all of the graphs and csv file you choose.
+6. **Results folder** : You can open 'res' folder and confirm the figure and Excel file you saved.
+7. **OK** : You can save and execute the data you choose.
+8. **Quit** : Exit
 ***
 
 ## Contributor

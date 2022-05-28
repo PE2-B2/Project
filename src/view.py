@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 
 def initMainView(wafer, xy, device, save, show):
-    progressPivot = 25
+    progressPivot = 10
 
     waferArr = list(map(str, wafer.split()))
     xyCoordinateArr = list(map(str, xy.split()))
