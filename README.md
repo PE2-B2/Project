@@ -11,27 +11,31 @@
 ***
 
 ## Introduction
-This tool is 
+This tool is data analysis software using PyCharm. 
+
+Put the data file in the folder and input a wafer name you want, 
+this program stores analyzed Dataframes and graphs and shows xml data customer give.
+
 ***
 
 ## Install
  ```
-Can make a square box.
+pip install -r requirements.txt
  ```
 ***
 
 ## Environment
 * <span style="color:red">Python 3.8</span>
-* Window 10
+* <span style="background-color:green">Window 10</span>
 
 ***
 
 ## Usage
-
+1. 
 ***
 
 ## Contributor
-* Kim Jung Hun              
-* Kang Gyeong Don           kgd981013@hanyang.ac.kr
-* Kim Min Ju                
+* Kim Jung Hun              dan05006@hanyang.ac.kr
+* Kang Gyeong Don           kgd981013@hanyang.ac.kr  
+* Kim Min Ju                minjukim12@hanyang.ac.kr  
 * Nhat Dong                 
