@@ -15,6 +15,10 @@ optShowFig = False
 
 handle = []  # waferID, index 순서
 
+rsqIV = []
+resSpectrum = []
+maxRef = []
+
 
 def storeWaferId(waferArr):
     global waferId, waferNumber
@@ -70,6 +74,24 @@ def storeHandle(testHandle, index):
     global handle
 
     handle[index].append(testHandle)
+
+
+def appendRsqIV(datRsq):
+    global rsqIV
+
+    rsqIV.append(datRsq)
+
+
+def appendmaxRef(dat):
+    global maxRef
+
+    maxRef.append(dat)
+
+
+def appendresSpec(dat):
+    global resSpectrum
+
+    resSpectrum.append(dat)
 
 
 def printData():

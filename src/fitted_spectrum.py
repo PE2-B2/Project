@@ -42,8 +42,9 @@ def fitSpec(directory, index):
         tempValue.append(v[6][1][values.argmin()])
         variableValues.append(tempValue)
 
-    print('Max value: ', v[6][0][y_values.argmax()], v[6][1][y_values.argmax()])
-    print('Min value: ', v[6][0][y_values.argmin()], v[6][1][y_values.argmin()])
+    #print('Max value: ', v[6][0][y_values.argmax()], v[6][1][y_values.argmax()])
+    model.appendmaxRef(v[6][1][y_values.argmax()])
+    #print('Min value: ', v[6][0][y_values.argmin()], v[6][1][y_values.argmin()])
 
     y_values_new = v[6][1] - y_values
 
