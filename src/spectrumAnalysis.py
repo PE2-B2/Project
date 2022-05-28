@@ -25,7 +25,7 @@ def specAnaly(directory):
 # Spectrum graph of raw data
 
     # Spectrum graph of raw data
-    plt.subplot(2, 2, 1)
+    plt.subplot(2, 3, 1)
     plots = []
     for i in range(len(v) - 1):
         line, = plt.plot(v[i][0], v[i][1], label="DCBias=\"" + str(v[i][2]) + "\"")

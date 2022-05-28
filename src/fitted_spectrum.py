@@ -48,7 +48,7 @@ def fitSpec(directory, index):
 
     y_values_new = v[6][1] - y_values
 
-    plt.subplot(2, 2, 3)
+    plt.subplot(2, 3, 3)
     plt.legend(handles=model.handle[index][0], ncol=2, loc="lower center")
     plt.title("REF fitting")
     plt.xlabel('Wavelength [nm]')
