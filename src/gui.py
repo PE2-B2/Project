@@ -59,10 +59,12 @@ class MainWindow(QMainWindow):
 
         self.showEdit = QCheckBox("Show Output", self)
         self.showEdit.move(350, 90)
+        self.showEdit.resize(200, 20)
         self.showEdit.toggle()
 
         self.saveEdit = QCheckBox("Save Output", self)
         self.saveEdit.move(350, 140)
+        self.saveEdit.resize(200, 20)
         self.saveEdit.toggle()
 
         string = "background-color: grey;border: none;color: white;text-align: " \
