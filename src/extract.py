@@ -6,21 +6,25 @@ import csv
 
 
 def makeCSV(directory):
-    # Wafer = str(input("Input wafer name : "))
-    # a = f.call_dir(Wafer, 'LMZ')
-    # Wafer = model.waferId[index]
-    # a = f.call_dir(Wafer, model.deviceName)
+    errormsg = ['No Error', 'Rsq. IV. Error']
 
+    # csv path
     f_output = open('./res/csvRes/allResult.csv', 'w', newline='')
     csv_writer = csv.writer(f_output)
     csv_writer.writerow(
-        ['Name', 'WaferID' 'Operator', 'Date', 'Testsite', 'Maskset', 'DieRow', 'DieColumn', 'AnalysisWavelength', 'I at 1V [A]',
-         'I at -1V [A]'])
+        ['Lot', 'Wafer', 'Mask', 'TestSite', 'Name', 'Date', 'Script ID', 'Script Owner', 'Operator', 'Row', 'Column',
+         'ErrorFlag', 'Error description', 'Analysis Wavelength', 'Rsq of Ref. spectrum',
+         'Max transmission of Ref. spec. (dB)',
+         'Rsq of IV', 'I at -2V', 'I at -1V', 'I at 1V'])
 
+    dirCounter = 0
     for t in directory:
         path = os.path.basename(t)
         root = ET.parse(t).getroot()
-        print(path)
+        # print(path)
+
+        scriptID = 'process LMZ'
+        scriptOwner = 'B2'
 
         element1 = root.find('.//Modulator')
         name = element1.attrib['Name']
@@ -50,8 +54,22 @@ def makeCSV(directory):
 
         IatV1 = rawValues[1][12]
         IatminV1 = rawValues[1][4]
+        IatminV2 = rawValues[1][0]
+
+        # errorFlag = 추가 해야함.
+        # errorDescription = 추가 해야함.
+        nowRsqIV = model.rsqIV[dirCounter]
+        if nowRsqIV >= 0.99:
+            errorcode = 0
+        else:
+            errorcode = 1
+        rsqSpec = model.resSpectrum[dirCounter]
+        MaxRef = model.maxRef[dirCounter]
 
         csv_writer.writerow(
-            [name, WaferID, operator, date, testsite, maskset, dierow, diecolumn, AnalysisWavelength, IatV1, IatminV1])
+            [batch, WaferID, maskset, testsite, name, date, scriptID, scriptOwner, operator, dierow, diecolumn,
+             errorcode,
+             errormsg[errorcode], AnalysisWavelength, rsqSpec, MaxRef, nowRsqIV, IatminV2, IatminV1, IatV1])
+        dirCounter += 1
 
     f_output.close()

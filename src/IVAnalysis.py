@@ -3,7 +3,8 @@ from . import model
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-from lmfit import Parameters, minimize, fit_report
+from lmfit import Parameters, minimize
+from sklearn.metrics import r2_score
 import xml.etree.ElementTree as ET
 
 
@@ -43,22 +44,31 @@ def showPara(directory):
     VT = fitted_params.params['VT'].value
     I_S = fitted_params.params['I_S'].value
 
-    print(fit_report(fitted_params))
+    # print(fit_report(fitted_params))
     fittedDiagram = np.abs(I_S * (np.exp(V2 / VT) - 1))
+
+    RI = np.concatenate((model1(polyline), np.abs(I_S * (np.exp(V2 / VT) - 1))))
+    R2 = r2_score(np.abs(v[1]), RI)
+    # print('R squared value (total): ', R2)
+
+    flag = False
+    if R2 < 0.99:
+        model1 = np.poly1d(np.polyfit(v[0], np.abs(v[1]), 6))
+        polyline = np.linspace(-2.0, 1.0, 13)
+        flag = True
+        R2 = r2_score(np.abs(v[1]), model1(polyline))
+    model.appendRsqIV(R2)
 
     plt.subplot(2, 2, 4)
     plt.plot(polyline, np.abs(model1(polyline)), color='red')
     plt.scatter(v[0], np.abs(v[1]), s=50, c='red', lw=2, label="IV data")
-    plt.plot(v[0][9:11], np.abs(v[1][9:11]), c='red', lw=2, label="fitted graph")
-    plt.plot(V2, fittedDiagram, c='red', lw=2)
-
-    # label = "R²:0.999999"
-
+    if flag == False:
+        plt.plot(v[0][9:11], np.abs(v[1][9:11]), c='red', lw=2, label="fitted graph")
+        plt.plot(V2, fittedDiagram, c='red', lw=2)
     plt.title("IV-Analysis", size=15)
     plt.xlabel('Voltage [V]', size=15)
     plt.ylabel('Current [A]', size=15)
-    plt.yscale('logit')
+    if flag == False:
+        plt.yscale('logit')
     plt.legend()
     plt.grid(True)
-
-    # plt.show()

@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 
 
 def initMainView(wafer, xy, device, save, show):
+    progressPivot = 25
 
     waferArr = list(map(str, wafer.split()))
     xyCoordinateArr = list(map(str, xy.split()))
@@ -28,7 +29,6 @@ def initMainView(wafer, xy, device, save, show):
     # Directory Search
     targetDirectory = []  # 디렉토리는 여기 추가하면 됨
 
-
     targetDevice = deviceName
     for waferPivot in waferArr:
         if xyCoordinateArr[0] == 'all':
@@ -41,9 +41,15 @@ def initMainView(wafer, xy, device, save, show):
 
     # extract.makeCSV(targetDirectory)
     # extract.makeCSV(targetDirectory)
-    extract.makeCSV(targetDirectory)
     hashTable = {}
+    numDat = len(targetDirectory)
+    counter = 0
+    nowPrg = progressPivot
     for pivot in targetDirectory:
+        if counter / numDat * 100 > nowPrg:
+            print('[Progress ' + str(nowPrg) + '% Complete]')
+            nowPrg += progressPivot
+
         IVAnalysis.showPara(pivot)
         spectrumFitting.specFitting(pivot, model.inputIDIndex)
         fitted_spectrum.fitSpec(pivot, model.inputCoordinateIndex)
@@ -64,9 +70,15 @@ def initMainView(wafer, xy, device, save, show):
                 hashTable[key] = 1
 
         if optShowFig == 'True':
-             plt.show()
+            plt.show()
         else:
             plt.clf()
+        counter += 1
+    print('[Process Complete!]')
+
+    print('[Data Storing]')
+    extract.makeCSV(targetDirectory)
+    print('[Storing Complete!]')
 
 
 def chkExist(targetArr, target):

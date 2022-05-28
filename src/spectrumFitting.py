@@ -38,7 +38,7 @@ def specFitting(directory, index):
     degree = 7
     model = np.poly1d(np.polyfit(x, y, degree))
 
-    print('Time for fitting degree ', '7', ': ', time.process_time() - start_time)
+    #print('Time for fitting degree ', '7', ': ', time.process_time() - start_time)
 
     # polyline = np.linspace(1530, 1580, 6065)
     y2 = model(x)
@@ -46,6 +46,7 @@ def specFitting(directory, index):
 
     handle.append(l)
     r_fitting = r2_score(y, y2)
-    print('R_Square value for degree 7 :', r_fitting)
+    m.appendresSpec(r_fitting)
+    #print('R_Square value for degree 7 :', r_fitting)
 
     m.storeHandle(handle, index)
