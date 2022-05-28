@@ -27,7 +27,7 @@ def specFitting(directory, index):
         waveValues.append(waveLengthSweep.attrib['DCBias'])
         v.append(waveValues)
 
-    plt.subplot(2, 2, 2)
+    plt.subplot(2, 3, 2)
     plt.plot(v[6][0], v[6][1], color='black', label="Fit ref polynomial O3")
 
     handle = []

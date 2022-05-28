@@ -59,7 +59,7 @@ def showPara(directory):
         R2 = r2_score(np.abs(v[1]), model1(polyline))
     model.appendRsqIV(R2)
 
-    plt.subplot(2, 2, 4)
+    plt.subplot(2, 3, 4)
     plt.plot(polyline, np.abs(model1(polyline)), color='red')
     plt.scatter(v[0], np.abs(v[1]), s=50, c='red', lw=2, label="IV data")
     if flag == False:
