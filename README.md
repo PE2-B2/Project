@@ -33,10 +33,13 @@ pip install -r requirements.txt
 ## Usage
 1. **Wafer** : You can type the wafer number you want in the data folder.
 2. **Coordinates** : You can type 'Row' and 'Column' from the wafer you choose.
+   * You must use parentheses. ex) (0,0) 
    * Type "all" if you want to see the entire data.
 3. **Device ID** : You can type device ID from the wafer you choose.
-   * ex) LMZ, LMZC, PSLCTE ...
+   * ex) LMZ, LMZC, LMZO ...
 4. **Show Output** : You can see the result graphs one by one.
+   * The graph is replaced every two seconds.
+   * It is not recommended because it takes a long time and if you have a PyCharm professional, you can see it in a scientific view.
 5. **Save Output** : You can save all of the graphs and csv file you choose.
 6. **Results folder** : You can open 'res' folder and confirm the figure and Excel file you saved.
 7. **OK** : You can save and execute the data you choose.
@@ -47,4 +50,4 @@ pip install -r requirements.txt
 * Kim Jung Hun              dan05006@hanyang.ac.kr
 * Kang Gyeong Don           kgd981013@hanyang.ac.kr  
 * Kim Min Ju                minjukim12@hanyang.ac.kr  
-* Nhat Dong                 
+* Nhat Dong                 nhatdong.tran@googlemail.com 

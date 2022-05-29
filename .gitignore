@@ -139,7 +139,7 @@ dmypy.json
 cython_debug/
 
 # project specific
-data/**
+data/D*
 
 # intellij configs
 .idea/
