@@ -9,19 +9,17 @@ def makeCSV(directory):
     errormsg = ['No Error', 'Rsq. IV. Error']
 
     # csv path
-    f_output = open('./res/csvRes/allResult.csv', 'w', newline='')
+    f_output = open('./res/csvRes/analyzedResult.csv', 'w', newline='')
     csv_writer = csv.writer(f_output)
     csv_writer.writerow(
         ['Lot', 'Wafer', 'Mask', 'TestSite', 'Name', 'Date', 'Script ID', 'Script Owner', 'Operator', 'Row', 'Column',
-         'ErrorFlag', 'Error description', 'Analysis Wavelength', 'Rsq of Ref. spectrum',
-         'Max transmission of Ref. spec. (dB)',
+         'ErrorFlag', 'Error description', 'Analysis Wavelength', 'Rsq of Ref. spectrum', 'Max transmission of Ref. spec. (dB)',
          'Rsq of IV', 'I at -2V', 'I at -1V', 'I at 1V'])
 
     dirCounter = 0
     for t in directory:
         path = os.path.basename(t)
         root = ET.parse(t).getroot()
-        # print(path)
 
         scriptID = 'process LMZ'
         scriptOwner = 'B2'
@@ -56,8 +54,6 @@ def makeCSV(directory):
         IatminV1 = rawValues[1][4]
         IatminV2 = rawValues[1][0]
 
-        # errorFlag = 추가 해야함.
-        # errorDescription = 추가 해야함.
         nowRsqIV = model.rsqIV[dirCounter]
         if nowRsqIV >= 0.99:
             errorcode = 0
@@ -66,10 +62,11 @@ def makeCSV(directory):
         rsqSpec = model.resSpectrum[dirCounter]
         MaxRef = model.maxRef[dirCounter]
 
+
         csv_writer.writerow(
             [batch, WaferID, maskset, testsite, name, date, scriptID, scriptOwner, operator, dierow, diecolumn,
-             errorcode,
-             errormsg[errorcode], AnalysisWavelength, rsqSpec, MaxRef, nowRsqIV, IatminV2, IatminV1, IatV1])
+             errorcode, errormsg[errorcode], AnalysisWavelength, rsqSpec, MaxRef,
+             nowRsqIV, IatminV2, IatminV1, IatV1])
         dirCounter += 1
 
     f_output.close()

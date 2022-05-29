@@ -23,8 +23,6 @@ def initMainView(wafer, xy, device, save, show):
     model.storeOptSaveFig(optSaveFig)
     model.storeOptShowFig(optShowFig)
 
-    # input Test Part
-    # model.printData()
 
     # Directory Search
     targetDirectory = []  # 디렉토리는 여기 추가하면 됨
@@ -39,8 +37,6 @@ def initMainView(wafer, xy, device, save, show):
             for coordinatePivot in xyCoordinateArr:
                 targetDirectory.append(df.call_dir(waferPivot, targetDevice, coordinatePivot))
 
-    # extract.makeCSV(targetDirectory)
-    # extract.makeCSV(targetDirectory)
     hashTable = {}
     numDat = len(targetDirectory)
     counter = 0
@@ -60,7 +56,7 @@ def initMainView(wafer, xy, device, save, show):
             device = deviceName
             key = str(wafer + coordinate + device)
             figure = plt.gcf()
-            figure.set_size_inches(16, 9)
+            figure.set_size_inches(16, 10)
             if key in hashTable:
                 hashTable[key] += 1
                 version = '(' + str(hashTable[key]) + ')'
@@ -71,6 +67,8 @@ def initMainView(wafer, xy, device, save, show):
 
         if optShowFig == 'True':
             plt.show()
+            plt.pause(2)  # This part takes a lot of time. It is recommended that this part be omitted.
+            plt.close()
         else:
             plt.clf()
         counter += 1

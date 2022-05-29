@@ -2,10 +2,7 @@ from . import filter as f
 from . import model
 import os
 import xml.etree.ElementTree as ET
-import pandas as pd
-import csv
 import numpy as np
-from sklearn.metrics import r2_score
 import warnings
 
 warnings.simplefilter('ignore', np.RankWarning)
@@ -42,9 +39,7 @@ def fitSpec(directory, index):
         tempValue.append(v[6][1][values.argmin()])
         variableValues.append(tempValue)
 
-    #print('Max value: ', v[6][0][y_values.argmax()], v[6][1][y_values.argmax()])
     model.appendmaxRef(v[6][1][y_values.argmax()])
-    #print('Min value: ', v[6][0][y_values.argmin()], v[6][1][y_values.argmin()])
 
     y_values_new = v[6][1] - y_values
 
@@ -68,7 +63,6 @@ def fitSpec(directory, index):
         plt.plot(v[i][0], subtracted, label="DCBias=\"" + str(v[i][2]) + "\"")
 
     line, = plt.plot(v[6][0], y_values_new, color='#3d3d3d', label="fitted REF")
-    plt.title("Transmission spectra - as measured")
-    plt.xlabel('Wavelength [nm]')
-    plt.ylabel('Measured transmission [dB]')
-    # plt.show()
+    plt.title("Fitted Spectrum", fontsize=12)
+    plt.xlabel('Wavelength [nm]', fontsize=12)
+    plt.ylabel('Measured transmission [dB]', fontsize=12)

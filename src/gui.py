@@ -22,10 +22,10 @@ class MainWindow(QMainWindow):
 
         self.setStyleSheet("background-color:white;")
 
-        self.titleLabel = QLabel("Input : ", self)
+        self.titleLabel = QLabel("Data Analysis Software", self)
         self.titleLabel.setFont(QFont('Arial bold', 15))
         self.titleLabel.move(50, 30)
-        self.titleLabel.resize(180, 30)
+        self.titleLabel.resize(210, 30)
 
         self.waferLabel = QLabel("Wafer : ", self)
         self.waferLabel.setFont(QFont('Arial', 10))
