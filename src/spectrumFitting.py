@@ -2,10 +2,8 @@ from . import filter as f
 from . import model as m
 import os
 import numpy as np
-import time
 from sklearn.metrics import r2_score
 import matplotlib.pyplot as plt
-from lmfit import Parameters, minimize, fit_report
 import xml.etree.ElementTree as ET
 import warnings
 
@@ -27,26 +25,24 @@ def specFitting(directory, index):
         waveValues.append(waveLengthSweep.attrib['DCBias'])
         v.append(waveValues)
 
-    plt.subplot(2, 2, 2)
+    plt.subplot(2, 3, 2)
     plt.plot(v[6][0], v[6][1], color='black', label="Fit ref polynomial O3")
 
     handle = []
-    start_time = time.process_time()
 
     x = v[6][0]
     y = v[6][1]
     degree = 7
     model = np.poly1d(np.polyfit(x, y, degree))
 
-    #print('Time for fitting degree ', '7', ': ', time.process_time() - start_time)
-
-    # polyline = np.linspace(1530, 1580, 6065)
     y2 = model(x)
     l, = plt.plot(x, y2, '--', color='red', label='degree 7')
+    plt.title("Fitted ref. spec", fontsize=12)
+    plt.xlabel('Wavelength [nm]', fontsize=12)
+    plt.ylabel('Measured transmission [dB]', fontsize=12)
 
     handle.append(l)
     r_fitting = r2_score(y, y2)
     m.appendresSpec(r_fitting)
-    #print('R_Square value for degree 7 :', r_fitting)
 
     m.storeHandle(handle, index)

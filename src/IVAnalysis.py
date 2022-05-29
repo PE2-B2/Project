@@ -9,8 +9,6 @@ import xml.etree.ElementTree as ET
 
 
 def showPara(directory):
-    # Wafer = model.waferId[index]
-    # a = f.call_dir(Wafer, model.deviceName)
 
     path = os.path.basename(directory)
     root = ET.parse(directory).getroot()
@@ -27,7 +25,6 @@ def showPara(directory):
     model1 = np.poly1d(np.polyfit(V1, I1, 6))
     polyline = np.linspace(-2.0, 0.25, 10)
 
-    # print(model1(polyline))
 
     def ivFit(params, V2, I2):
         I_S = params['I_S']
@@ -44,12 +41,11 @@ def showPara(directory):
     VT = fitted_params.params['VT'].value
     I_S = fitted_params.params['I_S'].value
 
-    # print(fit_report(fitted_params))
     fittedDiagram = np.abs(I_S * (np.exp(V2 / VT) - 1))
 
     RI = np.concatenate((model1(polyline), np.abs(I_S * (np.exp(V2 / VT) - 1))))
     R2 = r2_score(np.abs(v[1]), RI)
-    # print('R squared value (total): ', R2)
+
 
     flag = False
     if R2 < 0.99:
@@ -59,16 +55,18 @@ def showPara(directory):
         R2 = r2_score(np.abs(v[1]), model1(polyline))
     model.appendRsqIV(R2)
 
-    plt.subplot(2, 2, 4)
+
+    plt.subplot(2, 3, 4)
     plt.plot(polyline, np.abs(model1(polyline)), color='red')
     plt.scatter(v[0], np.abs(v[1]), s=50, c='red', lw=2, label="IV data")
     if flag == False:
         plt.plot(v[0][9:11], np.abs(v[1][9:11]), c='red', lw=2, label="fitted graph")
         plt.plot(V2, fittedDiagram, c='red', lw=2)
-    plt.title("IV-Analysis", size=15)
-    plt.xlabel('Voltage [V]', size=15)
-    plt.ylabel('Current [A]', size=15)
+    plt.title("IV-Analysis", size=12)
+    plt.xlabel('Voltage [V]', size=12)
+    plt.ylabel('Current [A]', size=12)
     if flag == False:
         plt.yscale('logit')
     plt.legend()
     plt.grid(True)
+    plt.suptitle('[Graph about analyzed data]', fontsize=20)
