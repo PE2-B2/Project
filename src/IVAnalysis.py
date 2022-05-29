@@ -1,4 +1,3 @@
-from . import filter as f
 from . import model
 import os
 import numpy as np
