@@ -16,8 +16,8 @@ This tool is data analysis software using PyCharm.
 Put the data file in the folder and input a wafer name you want, 
 this program stores analyzed Dataframes and graphs and shows xml data customer give.
 
-For more information, see 'manual_report' and 'comparision_report' in the 'doc' folder.
-You will be able to see the analyzed results for the sample data in the 'doc' folder.
+For more information, see 'manual_report' and 'comparision_report' in the 'doc' folder.  
+You will be able to see the analyzed results for the sample data in the 'doc' folder.  
 You can also see an example of running the software in the 'ppt' folder as a video.
 ***
 
